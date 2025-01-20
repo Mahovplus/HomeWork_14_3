@@ -8,7 +8,7 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMar
 import asyncio
 
 # Конфигурационные параметры
-api = "7576418794:AAEtKzpYh-fVFGWTtopWkc92gD50pnxkZzE"
+api = ""
 bot = Bot(token=api)
 dp = Dispatcher(bot, storage=MemoryStorage())
 
@@ -37,11 +37,9 @@ kb_il.add(button_in1, button_in2)
 
 # Клавиатура выбора товара
 kb_buy_product = InlineKeyboardMarkup()
-but1 = InlineKeyboardButton(text=products[0], callback_data='sold out_1')
-but2 = InlineKeyboardButton(text=products[1], callback_data='sold out_2')
-but3 = InlineKeyboardButton(text=products[2], callback_data='sold out_3')
-but4 = InlineKeyboardButton(text=products[3], callback_data='sold out_4')
-kb_buy_product.add(but1, but2, but3, but4)
+for num, but in enumerate(products):
+    toch = InlineKeyboardButton(text=but, callback_data=f'sold out_{num+1}')
+    kb_buy_product.add(toch)
 
 
 @dp.message_handler(text='Купить')
