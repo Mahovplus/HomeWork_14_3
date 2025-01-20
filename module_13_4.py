@@ -41,7 +41,7 @@ for num, but in enumerate(products):
     toch = InlineKeyboardButton(text=but, callback_data=f'sold out_{num+1}')
     kb_buy_product.add(toch)
 
-
+# Функция - витрина ассортимента 
 @dp.message_handler(text='Купить')
 async def get_buying_list(message):
     files = ['beauty.png', 'bulgakovocenil.png', 'opium.png', 'vitamin C.png']
@@ -50,18 +50,10 @@ async def get_buying_list(message):
             if i in files[num - 1]:
                 await message.answer_photo(img, f"Название: {products[num-1]} | БиоАктивДобавка | Цена: {num * 100}")
                 continue
-            if i in 'bulgakovocenil.png':
-                await message.answer_photo(img, f"Название: {products[num-1]} | ПсихоАктивДобавка | Цена: {num * 100}")
-                continue
-            if i in files[num - 1]:
-                await message.answer_photo(img, f"Название: {products[num-1]} | ПсихоАктивДобавка | Цена {num * 100}")
-                continue
-            if i in files[num - 1]:
-                await message.answer_photo(img, f"Название: {products[num-1]} | БиоАктивДобавка | Цена {num * 100}")
     await message.answer('Выберйте любой. Выбирайте хоть все!', reply_markup=kb_buy_product)
 
 
-
+# Функция - одобрение покупки с выводом наименования приобретенного
 @dp.callback_query_handler(text=['sold out_1', 'sold out_2', 'sold out_3', 'sold out_4'])
 async def send_confirm_message(call: CallbackQuery):
     item_number = int(call.data.split('_')[-1])
